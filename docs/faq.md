@@ -1,6 +1,6 @@
 # Questions people ask: the long answers
 
-[Back to the README](../README.md#questions-people-ask)
+[Back to the README](../README.md)
 
 The README keeps a short answer to each question. These are the ones that need more room.
 

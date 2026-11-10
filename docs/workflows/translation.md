@@ -39,14 +39,7 @@
 8. Build the launcher, set the TV's language (Android 13+: `tools/tv.py 'cmd locale set-app-locales com.gathin.tvhome --locales <tag>'`)
    and attach a screenshot. Right-to-left languages mirror the layout like Hebrew; `tests/test_hebrew_resources.py`
    checks that `layout-iw` keeps every view.
-9. The language count moves with the folder. `README.md`, `README.nl.md`, `README.de.md`, `README.uk.md` and
-   `README.tr.md` state it in the card's alt text and in the `| **N languages** |` row, and
-   `tools/readme_stats.py`'s `STATS` carries it for the pictures, so a language added without them leaves
-   those pages and the card claiming the old number.
-   `tests/test_gen_tables_translated_counts.py` fails on the translated page in the meantime ('355 tv-modellen ·
-   97 merken · 30 talen · ' != '… 29 talen · '). Run `python3 tools/gen_tables.py` after adding the folder: it
-   moves the number in the pages it writes and in `STATS`, prints that `docs/stats.png` and `docs/card.jpg` have
-   to be redrawn with the font (`--font Fredoka.ttf`), and its `--check` - what CI's "README tables" job runs -
-   exits 1 until they agree.
+9. The language count moves with the folder: `tools/readme_stats.py`'s `STATS` carries it. Run `python3 tools/gen_tables.py`
+   after adding the folder; it moves the number there, and its `--check` (CI's "README tables" job) exits 1 until they agree.
 
 Then run the tests: `python3 -m unittest discover -s tests -v`.

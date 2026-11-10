@@ -157,10 +157,6 @@ class FireOsLimitTest(unittest.TestCase):
 
 
 class PointersTest(unittest.TestCase):
-    def test_readme_no_longer_promises_a_fire_tv_debloat(self):
-        text = flat(README.read_text(encoding="utf-8"))
-        self.assertIn("on the 2015 Fire TV Box (Fire OS 5) even that half fails", text)
-        self.assertIn("every `pm` route is refused", text)
 
     def test_examples_readme_lists_the_note(self):
         text = EXAMPLES_README.read_text(encoding="utf-8")

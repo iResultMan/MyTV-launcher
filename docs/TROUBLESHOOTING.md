@@ -1400,7 +1400,7 @@ gone after every reboot and has to be started again from a debugging session you
 things fail silently when you do: the script must be detached from the `adb shell` session or it dies with
 it, and a supervisor must not start a second copy. Do not solve the reboot by leaving TCP ADB on so
 something local can restart it — port 5555 reachable from the LAN is a shell on the TV for anything on the
-network, which is why the closing step in [README](../README.md#questions-people-ask) turns it off.
+network, which is why the closing step in [README](../README.md#doing-it-by-hand) turns it off.
 
 ## The Netflix button still opens Netflix, and a key helper never sees it (TCL UnionTV)
 

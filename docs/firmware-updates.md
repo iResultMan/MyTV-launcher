@@ -10,7 +10,7 @@ compare the TV with the list you applied.
 
 The check and `--fix` reach the TV over network ADB. If you closed ADB as
 [Isn't ADB access a security hole?](faq.md#isnt-adb-access-a-security-hole) describes, open it again first: USB
-debugging, and Network/ADB debugging if the TV has it, back on as in [Quick start](../README.md#quick-start)
+debugging, and Network/ADB debugging if the TV has it, back on as in [Install](../README.md#install)
 step 1. On a TV whose port 5555 only opens through Wireless debugging, switch that on as well and pair
 it again with the stock `adb`. From there either route works: `adb tcpip 5555`, as in
 [Doing it by hand](../README.md#doing-it-by-hand), which usually lasts only until the TV reboots, or

@@ -61,12 +61,6 @@ class SamsungTizenPageTest(unittest.TestCase):
         self.assertRegex(page(), r"(?i)one set, one firmware",
                          "one owner's report must not read like a platform-wide claim")
 
-    def test_readme_sends_tizen_readers_to_the_page(self):
-        text = README.read_text(encoding="utf-8")
-        self.assertIn("docs/devices/samsung-tizen.md", text,
-                      "the Supported TVs paragraph is where a Samsung owner looks")
-        self.assertRegex(text, r"(?i)samsung \(tizen\)")
-
 
 class PageLinksTest(unittest.TestCase):
     def test_readme_links_resolve(self):

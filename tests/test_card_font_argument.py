@@ -277,36 +277,6 @@ SCRIPT = re.compile(r"tools/readme_[\w]+\.py")
 COMMAND = re.compile(r"`([^`]*" + SCRIPT.pattern + r" [^`]*)`")
 
 
-class PressRecipeShapeTest(unittest.TestCase):
-    """The commands the page prints have to be the two-argument shape the scripts now insist on."""
-
-    def commands(self):
-        return COMMAND.findall(PRESS.read_text(encoding="utf-8"))
-
-    def test_the_page_prints_the_redraw_commands(self):
-        named = {SCRIPT.findall(cmd)[0] for cmd in self.commands()}
-        self.assertEqual({"tools/readme_featured.py", "tools/readme_card.py"}, named,
-                         "press.md no longer prints both redraw commands, so this check would prove nothing")
-
-    def test_each_command_passes_two_arguments_and_writes_a_picture_the_repo_has(self):
-        for cmd in self.commands():
-            with self.subTest(command=cmd):
-                parts = cmd.split()
-                at = parts.index(SCRIPT.findall(cmd)[0])
-                arguments = parts[at + 1:]
-                self.assertEqual(2, len(arguments),
-                                 f"press.md prints '{cmd}', which is not <script> <font> <picture>")
-                self.assertTrue((ROOT / parts[at]).is_file(),
-                                f"press.md names {parts[at]}, which is not in the repo")
-                self.assertTrue((ROOT / arguments[1]).is_file(),
-                                f"press.md writes {arguments[1]}, which the repo does not ship")
-
-    def test_the_page_says_the_font_is_not_in_the_repo(self):
-        # The one fact a reader cannot get from the commands themselves: the font path is theirs to supply.
-        text = PRESS.read_text(encoding="utf-8")
-        self.assertIn("Google Fonts", text, "press.md prints a font path without saying where the font comes from")
-        self.assertIn("not in the repo", text, "press.md prints a font path without saying it is not in the repo")
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -82,7 +82,7 @@ share their TV's list afterwards, follow [`docs/workflows/tv-list.md`](docs/work
 | `themes/` | One folder per theme: `config.json`, a required `screenshot.jpg`, optional wallpapers. Keys are documented in `themes/README.md`. |
 | `addons/` | Optional module-card apps, each its own Gradle project, never built into the launcher. |
 | `tools/` | The ADB client (`tv.py`) and the scripts, listed in the README's Tools table. Shell scripts have PowerShell twins. Each script's usage is in its first lines, and the larger ones have a guide beside them (`tools/*.md`): read it before running the script. |
-| `tests/` | Python `unittest` suite: list format, README tables, press counts, themes, add-ons, the Home guard and the tools against fake TVs. |
+| `tests/` | Python `unittest` suite: list format, TV tables, themes, add-ons, the Home guard and the tools against fake TVs. |
 | `.github/workflows/` | `ci.yml` (tests, launcher build, APK size gate), `addons.yml`. |
 | `.github/maintainer/MAINTAINER.md` | The review policy the maintainer and the PR bot apply. |
 | `.github/pull_request_template.md` | The PR checklist. Fill it in. |
@@ -115,7 +115,6 @@ use it and ends with the check to run.
 - [`theme.md`](docs/workflows/theme.md): add a theme from existing keys, with its screenshot from a real TV.
 - [`addon.md`](docs/workflows/addon.md): add a module-card app that never touches `launcher/`.
 - [`showcase.md`](docs/workflows/showcase.md): list a project that lives in its own repository.
-- [`press.md`](docs/workflows/press.md): add an article and update the four press counts.
 - [`docs-notes.md`](docs/workflows/docs-notes.md): add a troubleshooting entry or a `PROMPT.md` fix, keeping pinned facts.
 - [`perf-ab.md`](docs/workflows/perf-ab.md): an optional check of a launcher change for performance regressions with
   `tools/bench.py`, and measure an improvement or a failed check with traces, a report and flame charts.

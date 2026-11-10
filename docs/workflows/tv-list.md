@@ -33,21 +33,10 @@
    an active line, `disabled` on one (the stock launcher `launcher/build-and-install.sh` takes Home from is
    the exception) - so a package left commented out is not `disabled` however the comment reads, and a
    package the list still sends is not `kept`. Any other wording after the name claims nothing, which is
-   how `notes` stays free prose. `readme_os` is the one optional key: it is the OS cell of the two-column
-   table in `README.nl.md`,
-   for a set whose row there should read shorter than the same set's row in `examples/README.md` - that table
-   has room for `Google TV launcher on Android TV 11`, the short one for `Google TV 11`.
+   how `notes` stays free prose. `readme_os` is an optional key, the OS cell of a short two-column table; this project keeps none, so leave it out.
    `tests/test_examples.py` checks the file.
-5. Change nothing outside the folder. The tables in `examples/README.md` and `README.nl.md`, the brand grid in
-   `README.md`, `README.nl.md`, `README.de.md`, `README.uk.md` and `README.tr.md`, and the counts (the
-   `TV models` number in the card's alt text) are generated from every `tv.json` by `tools/gen_tables.py`,
-   which a maintainer runs after merging; CI compares them only on `main`.
-   One copy of those counts is outside the generated blocks: the story sentence that shows the card on the same
-   five front pages ("The lists now cover 387 TV models from 103 brands") is prose, so a regeneration moves the
-   picture and leaves the sentence where it was - the round that took the tree to 387 models shipped 380 in the
-   story two screens below the card. `tests/test_press_counts.py` reads the pair out of the sentence and holds it
-   to the alt text beside it (`README.de.md states (TV models, brands) (380, 101) in its story sentence and its
-   card states (387, 103)`), so they move in the same commit.
+5. Change nothing outside the folder. The table in `examples/README.md` is generated from every `tv.json` by
+   `tools/gen_tables.py`, which a maintainer runs after merging; CI compares it only on `main`.
 6. A `README.md` for TV-specific notes and a `config.json` with the dock are welcome in the folder. Notes are
    free prose; three things in a README are read back, two of them against the list beside it.
    A package count ("The 38 packages that were disabled", "the debloat list disables 71 packages") is

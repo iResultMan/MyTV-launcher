@@ -40,9 +40,9 @@ Every brand ships different bloat. If you ran the prompt (or did it by hand) on 
    in the README's brand grid; a new brand is fine) and `notes` (one line: what the list disables and
    keeps). A package that line names in backticks with `kept`, `disabled` or `refused` straight after it is a
    claim, and [`docs/workflows/tv-list.md`](docs/workflows/tv-list.md) step 4 has what the tests read it
-   against. One optional key, `readme_os`, is the OS cell of the short table in `README.nl.md` when it should
-   read shorter than `os` does in `examples/README.md`. Change nothing outside your folder: the TV table in
-   `examples/README.md`, the brand grid in the READMEs and the counts are generated from every folder's
+   against. One optional key, `readme_os`, is the OS cell of a short table in a README; this project keeps none, so leave it out.
+   Change nothing outside your folder: the TV table in
+   `examples/README.md` and the counts are generated from every folder's
    `tv.json` after merging, so a PR that edits them only collides with the other open lists.
 5. If your TV's Live TV app or stock launcher has a different package name, say so in the header. Where
    a script needs the stock launcher, `tools/restore.sh` takes it as its second argument

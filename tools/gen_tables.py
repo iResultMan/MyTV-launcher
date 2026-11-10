@@ -259,26 +259,14 @@ def stats(text, entries, root):
 
 
 OWNED = ("README.md", "examples/README.md", "tools/readme_stats.py")
-# The translated READMEs that carry the brand block too, written when the file is there - and the three
-# words each of them states its counts in, for the card's alt text ("345 TV models · 93 brands · 29
-# languages · ") and the "| **29 languages** |" row. The brand block is generated, so those numbers have
-# to move with it: README.nl.md was added to this script as it stood and said "316 tv-modellen · 89
-# merken · 28 talen" over a grid built from 345 lists in 93 brands, because counts() only knew the
-# English words. A page listed here without its words would drift the same way, so
-# tests/test_gen_tables_translated_counts.py reads them - and holds every page that carries the markers to
-# being written, which is how README.de.md came here: it copied the block by hand when the German page
-# landed, so its grid said "Xiaomi · 32" and "+49 more brands" over 97 brands while README.md said 34 and
-# +53, and no run moved it.
-TRANSLATIONS = {"README.nl.md": ("tv-modellen", "merken", "talen"),
-                "README.de.md": ("TV-Modelle", "Marken", "Sprachen"),
-                "README.uk.md": (("модель телевізорів", "моделі телевізорів", "моделей телевізорів"),
-                                 ("бренд", "бренди", "брендів"), ("мова", "мови", "мов")),
-                "README.tr.md": ("TV modeli", "marka", "dil")}
+# The translated READMEs that carry the brand block; this project keeps none, so nothing is written but README.md.
+TRANSLATIONS = {}
 
 
 def readme(text, entries, root, path, words=WORDS):
-    """A README with its brand block (required), its short TV table (only if it has the markers) and counts."""
-    text = between(text, "tv-brands", brand_lines(entries), path)
+    """A README with its brand block and short TV table (each only if it has the markers) and counts."""
+    if has_markers(text, "tv-brands"):
+        text = between(text, "tv-brands", brand_lines(entries), path)
     if has_markers(text, "tv-table"):
         text = between(text, "tv-table", readme_rows(entries), path)
     return counts(text, entries, root, words)
@@ -426,7 +414,7 @@ def redraw(root, font):
 
     This is the one place the script starts two other programs, and each of them answers a font that is not
     Fredoka's variable TTF - the Google Fonts zip renamed, a static single-weight file beside it - or a venv
-    without Pillow (requirements.txt has none; docs/workflows/press.md installs requirements-perf.txt) with
+    without Pillow (requirements.txt has none; install requirements-perf.txt) with
     its own line and exit 1. With check=True that line was then followed by a CalledProcessError traceback
     that named the font path as a command, after the tables had already been rewritten: a run that read like
     "nothing was drawn" had changed two files, and the pictures it promised were not there.
