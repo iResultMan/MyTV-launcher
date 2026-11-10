@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Weather (WeatherHeader): a divider, then the place and sky over the temperature with its icon,
+     then "feels like", all centred on one axis. Gone until the theme sets weather_lat and
+     weather_lon and the first read succeeds. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/weatherBlock"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:orientation="horizontal"
+    android:visibility="gone">
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:background="#33FFFFFF" />
+
+    <!-- Focusable (in code) when the weather app is installed: OK opens it. The negative margins
+         keep the text where it was despite the padding the focus ring needs. -->
+    <LinearLayout
+        android:id="@+id/weatherTap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-14dp"
+        android:layout_marginEnd="-14dp"
+        android:layout_marginTop="-6dp"
+        android:layout_marginBottom="-6dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:background="@drawable/weather_focus_bg"
+        android:focusable="false"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/weatherCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="#C8FFFFFF"
+            android:textSize="11sp"
+            android:fontFamily="@string/font_regular"
+            android:letterSpacing="0.14"
+            android:textAllCaps="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/weatherIcon"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:id="@+id/weatherTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textColor="#FFFFFFFF"
+                android:textSize="60sp"
+                android:fontFamily="@string/font_light"
+                android:includeFontPadding="false" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/weatherFeels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:singleLine="true"
+            android:textColor="#A6FFFFFF"
+            android:textSize="11sp"
+            android:fontFamily="@string/font_regular"
+            android:letterSpacing="0.14"
+            android:textAllCaps="true" />
+
+        <TextView
+            android:id="@+id/weatherHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:singleLine="true"
+            android:textColor="#FF8FC4FF"
+            android:textSize="11sp"
+            android:fontFamily="@string/font_medium"
+            android:letterSpacing="0.14"
+            android:textAllCaps="true"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

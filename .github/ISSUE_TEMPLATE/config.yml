@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: A question about the upstream project or its TV lists?
+    url: https://github.com/Gathin23/cleanyourtv/discussions
+    about: MyTV is a fork of CleanYourTV. Questions about the original launcher, the prompt and the debloat lists belong in the upstream Discussions.
+  - name: Samsung, LG, Roku or another non-Android TV?
+    url: https://cleanyour.tv/not-android
+    about: This launcher can't run there. The upstream guide turns off the tracking, step by step with your remote.

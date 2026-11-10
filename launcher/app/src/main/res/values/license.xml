@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The 32-byte Ed25519 public key (64 hex digits) that licence keys are checked against; empty until the owner
+         makes a signing key (tools/license/mint.py keygen). With none set every TV stays on the free tier. -->
+    <string name="license_public_key" translatable="false"></string>
+</resources>

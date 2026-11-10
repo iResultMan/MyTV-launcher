@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The Telegram bot a pairing QR code opens (its name without @, for https://t.me/<bot>?start=<code>). Empty: the QR
+         code opens the project's page with the code instead. A theme can set "cloud_bot" and "cloud_url" (the server,
+         https only; the default is https://tv.secondoffice.ru). -->
+    <string name="cloud_bot" translatable="false"></string>
+</resources>

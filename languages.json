@@ -1,0 +1,128 @@
+{
+ "languages": [
+  {
+   "tag": "en",
+   "name": "English"
+  },
+  {
+   "tag": "ar",
+   "name": "العربية"
+  },
+  {
+   "tag": "ast",
+   "name": "Asturianu"
+  },
+  {
+   "tag": "bn",
+   "name": "বাংলা"
+  },
+  {
+   "tag": "ca",
+   "name": "Català"
+  },
+  {
+   "tag": "cs",
+   "name": "Čeština"
+  },
+  {
+   "tag": "da",
+   "name": "Dansk"
+  },
+  {
+   "tag": "de",
+   "name": "Deutsch"
+  },
+  {
+   "tag": "es",
+   "name": "Español"
+  },
+  {
+   "tag": "es-419",
+   "name": "Español (Latinoamérica)"
+  },
+  {
+   "tag": "fi",
+   "name": "Suomi"
+  },
+  {
+   "tag": "fr",
+   "name": "Français"
+  },
+  {
+   "tag": "he",
+   "name": "עברית"
+  },
+  {
+   "tag": "id",
+   "name": "Bahasa Indonesia"
+  },
+  {
+   "tag": "it",
+   "name": "Italiano"
+  },
+  {
+   "tag": "ko",
+   "name": "한국어"
+  },
+  {
+   "tag": "nb",
+   "name": "Norsk bokmål"
+  },
+  {
+   "tag": "nl",
+   "name": "Nederlands"
+  },
+  {
+   "tag": "pl",
+   "name": "Polski"
+  },
+  {
+   "tag": "pt",
+   "name": "Português"
+  },
+  {
+   "tag": "pt-PT",
+   "name": "Português (Portugal)"
+  },
+  {
+   "tag": "ru",
+   "name": "Русский"
+  },
+  {
+   "tag": "sr-Latn",
+   "name": "Srpski (latinica)"
+  },
+  {
+   "tag": "sv",
+   "name": "Svenska"
+  },
+  {
+   "tag": "th",
+   "name": "ไทย"
+  },
+  {
+   "tag": "tr",
+   "name": "Türkçe"
+  },
+  {
+   "tag": "uk",
+   "name": "Українська"
+  },
+  {
+   "tag": "uz",
+   "name": "Oʻzbekcha"
+  },
+  {
+   "tag": "vi",
+   "name": "Tiếng Việt"
+  },
+  {
+   "tag": "zh-CN",
+   "name": "简体中文"
+  },
+  {
+   "tag": "zh-TW",
+   "name": "繁體中文"
+  }
+ ]
+}

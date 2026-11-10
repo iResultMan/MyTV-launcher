@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyTV: a faster Android TV with family controls</title>
+<meta name="description" content="MyTV is an open-source Android TV launcher that speeds up a slow TV: it switches off the services you never use and a sanitizer keeps memory free. It also adds a children's schedule, phone control and a sleep timer. MIT licence.">
+<link rel="canonical" href="https://tv.secondoffice.ru/">
+<link rel="alternate" hreflang="en" href="https://tv.secondoffice.ru/">
+<link rel="alternate" hreflang="ru" href="https://tv.secondoffice.ru/ru/">
+<meta property="og:title" content="MyTV: a faster Android TV with family controls">
+<meta property="og:description" content="Switches off the services you never use, a sanitizer that frees memory, plus a children's schedule, phone control and a sleep timer. Open source, MIT.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tv.secondoffice.ru/">
+<meta name="theme-color" content="#0f1114">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f1114'/%3E%3Crect x='6' y='9' width='20' height='13' rx='2' fill='none' stroke='%23f0a63a' stroke-width='2'/%3E%3Cpath d='M12 26h8' stroke='%23f0a63a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/onest-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#speed">Skip to the content</a>
+
+<header class="bar">
+  <a class="bar__name" href="#top">MyTV</a>
+  <div class="bar__end">
+    <nav aria-label="Page sections">
+      <a href="#speed">Speed</a>
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+      <a href="#status">What is tested</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#support">Support</a>
+    </nav>
+    <a class="lang" href="ru/" hreflang="ru" lang="ru" aria-label="Русская версия">RU</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="hero__main">
+      <h1 class="rise" style="--i:0">A slow TV made fast, and a home screen where parents set the rules</h1>
+      <p class="hero__lead rise" style="--i:1">MyTV is an open-source Android TV launcher. It switches off the services you never use, and its sanitizer keeps the memory free on its own, so the TV stays quick. For a family it adds a children's schedule with a PIN, phone control and a sleep timer. It needs no account.</p>
+      <div class="hero__cta rise" style="--i:2">
+        <a class="btn" href="#install">Download and install</a>
+        <a class="btn btn--line" href="https://github.com/iResultMan/MyTV-launcher">Read the code</a>
+        <span class="hero__note">Free. MIT licence.</span>
+      </div>
+    </div>
+    <aside class="hero__facts" aria-label="MyTV at a glance">
+      <div class="rise" style="--i:3">
+        <div class="fact__figure">0.9<small>MB</small></div>
+        <p class="fact__label">The whole launcher is under 1 MB, with no analytics, ads or third-party SDK.</p>
+      </div>
+      <ul class="facts rise" style="--i:4">
+        <li><span>Needs</span><span>Android 8.0 or newer</span></li>
+        <li><span>Tested on</span><span>TCL BeyondTV2</span></li>
+        <li><span>Installs from</span><span>a computer, over Wi-Fi</span></li>
+        <li><span>Licence</span><span>MIT</span></li>
+      </ul>
+    </aside>
+  </div>
+
+  <section id="speed" aria-labelledby="speed-h">
+    <div class="section-head">
+      <h2 id="speed-h">Why the TV gets faster</h2>
+      <p>A slow TV is rarely slow only because of its chip. On our TCL the memory was full nearly all the time: the 600 MB swap was almost always used, and with five heavy apps open the system's memory cleaner took 95% of a core. MyTV goes after that.</p>
+    </div>
+    <ol class="rows">
+      <li>
+        <h3>Services you never use are switched off</h3>
+        <div>
+          <p>The install tools disable the manufacturer's telemetry, ad services, content rows and preloaded apps, with <code>pm disable-user</code>. Nothing is uninstalled, and one command puts everything back. The repository has lists for more than 250 TV models; on our TCL it came to 15 packages.</p>
+          <span class="tag">We did not measure a percentage for this step on our TV, so we do not give one.</span>
+        </div>
+      </li>
+      <li>
+        <h3>A launcher that does almost nothing while idle</h3>
+        <div>
+          <p>It draws only when something changes. In our measurement on one TCL TV (version 2.7) it held 42 MB and used 0 to 0.6% of a core while idle. Two other launchers we tried held 64 MB and 140 MB and used about 13% and 30 to 58% of a core.</p>
+          <span class="tag">One TV, a few runs. We will measure the current version again.</span>
+        </div>
+      </li>
+      <li>
+        <h3>A sanitizer that tidies the TV by itself</h3>
+        <div>
+          <p>Nothing polls. It looks at the memory when Home has been quiet for three minutes, when the screen goes off, and when Android asks apps to give memory back. If the swap is nearly full or the RAM is low, it closes the background processes of your apps, never the one on screen, one playing in the background, the launcher or your VPN app, and at most once in 20 minutes. If your VPN dropped, it opens the VPN app again after four quiet minutes.</p>
+          <span class="tag">Still being tried on one TV. One setting turns it off.</span>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="features" aria-labelledby="features-h">
+    <div class="section-head">
+      <h2 id="features-h">What a family gets</h2>
+      <p>The speed is the reason. These are the family features on top of it.</p>
+    </div>
+    <ol class="rows">
+      <li>
+        <h3>Children's mode</h3>
+        <div>
+          <p>A schedule for when the TV may be used, a PIN stored as a salted hash, a journal of what happened, a daily screen-time table for the last 30 days, and bonus minutes a parent grants on the TV with the PIN. If the helper service is switched off, the journal says so.</p>
+        </div>
+      </li>
+      <li>
+        <h3>Phone control at home</h3>
+        <div>
+          <p>The TV shows a pairing code. A parent's phone enters it and gets a small page served by the TV itself on port 8787, only inside your home network. Lock, unlock, send a message over the video, power off. Each paired phone has its own revocable token.</p>
+          <span class="tag">Bots and your own scripts use the same documented HTTP API.</span>
+        </div>
+      </li>
+      <li>
+        <h3>Sleep timer over the video</h3>
+        <div>
+          <p>Up and Down change the minutes while the video keeps playing: off, 15, 30, 60 or 90. A warning shows a minute before, any remote key adds 15 minutes, and at the end the TV goes to standby. On a TCL remote a double tap of the gear button opens it.</p>
+          <span class="tag">Standby needs Android 9 or newer.</span>
+        </div>
+      </li>
+      <li>
+        <h3>Watch next first</h3>
+        <div>
+          <p>Home opens on the shelf of films and episodes you were in the middle of, and the apps are one press down. The permission to read TV listings is asked only when you turn the shelf on.</p>
+        </div>
+      </li>
+      <li>
+        <h3>Power off from the phone</h3>
+        <div>
+          <p>Switch the TV off now or after a delay of up to 24 hours, and cancel a pending one. The same warning and the same +15 minutes apply.</p>
+        </div>
+      </li>
+      <li>
+        <h3>A stuck lock has a way out</h3>
+        <div>
+          <p>If the PIN is lost, a marker file sent over adb lifts the lock and clears the code set on the TV. Nothing else can.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+
+  <section id="install" aria-labelledby="install-h">
+    <div class="section-head">
+      <h2 id="install-h">Install it from your computer</h2>
+      <p>No account and no root. You need a computer on the same Wi-Fi as the TV, and about ten minutes.</p>
+    </div>
+    <div class="support__actions">
+      <a class="btn" href="https://github.com/iResultMan/MyTV-launcher/releases/latest/download/MyTV.apk">Download MyTV.apk</a>
+      <a class="btn btn--line" href="https://github.com/iResultMan/MyTV-launcher/releases">All releases</a>
+    </div>
+    <ol class="rows">
+      <li>
+        <h3>1. Turn on debugging on the TV</h3>
+        <div><p>Settings, Device Preferences, About: press OK on Build seven times. Back, then Developer options: switch USB debugging on. If there is a Network debugging toggle, switch it on too. Note the TV's IP address under Settings, Network.</p></div>
+      </li>
+      <li>
+        <h3>2. Connect from the computer</h3>
+        <div>
+          <p>Install Google's <a href="https://developer.android.com/tools/releases/platform-tools">platform-tools</a> (they contain <code>adb</code>) on Windows, macOS or Linux. In a terminal, in the folder with the download:</p>
+<pre>adb connect 192.168.1.50:5555</pre>
+          <p>Use your TV's address. Allow the connection on the TV screen when it asks.</p>
+        </div>
+      </li>
+      <li>
+        <h3>3. Put MyTV on the TV</h3>
+        <div>
+          <p>One command copies the app to the TV:</p>
+<pre>adb install -r MyTV.apk</pre>
+          <span class="tag">If another build with the same application id (com.gathin.tvhome) is already on the TV, uninstall it first: Android will not replace an app signed by someone else.</span>
+        </div>
+      </li>
+      <li>
+        <h3>4. Make it Home and switch the rest off</h3>
+        <div>
+          <p>The guided path does the backup, applies the list of services to switch off for your TV model, makes MyTV the home screen and rolls back if Home does not land on it. It is in the README under "Doing it by hand".</p>
+          <span class="tag"><a href="https://github.com/iResultMan/MyTV-launcher#doing-it-by-hand">Open the README</a>. A one-click installer for Windows, macOS and Linux is planned.</span>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="screens" aria-labelledby="screens-h">
+    <div class="section-head">
+      <h2 id="screens-h">On the screen</h2>
+      <p>Screenshots from a real TCL TV, with the launcher set to English.</p>
+    </div>
+    <div class="shots">
+      <figure>
+        <img src="img/home.jpg" width="1280" height="720" alt="Home screen of the MyTV launcher in English: a greeting, the clock and a row of streaming apps.">
+        <figcaption>Home: the greeting, the clock and the dock of a family TV.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/menu.jpg" width="1280" height="720" alt="The menu opened from the gear button: Launcher settings, Native settings, Children's mode, Check and set up, Watch next, Sleep timer." loading="lazy">
+        <figcaption>The gear button's menu: launcher settings, children's mode, Watch next, sleep timer.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/settings.jpg" width="1280" height="720" alt="Launcher settings with a Language row and a Phone and cloud row." loading="lazy">
+        <figcaption>Launcher settings: a language row for the launcher alone, and Phone and cloud.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/language.jpg" width="1280" height="720" alt="The Language dialog listing English, Arabic, Asturian, Bangla, Catalan, Czech, Danish and German." loading="lazy">
+        <figcaption>The language list, read from languages.json in this repository.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/phone-and-cloud.jpg" width="1280" height="720" alt="The Phone and cloud screen explaining what the server learns, with Cloud control switched off." loading="lazy">
+        <figcaption>Phone and cloud: what the server learns, and a switch that stays off until a parent turns it on.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/support.jpg" width="1280" height="720" alt="Two QR codes on the Support the project screen, one worldwide and one for Russia." loading="lazy">
+        <figcaption>Support the project: two codes a phone can read. The launcher sends nothing itself.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="status" aria-labelledby="status-h">
+    <div class="section-head">
+      <h2 id="status-h">What is tested, and what is not</h2>
+      <p>We would rather say it plainly than have you find out on a family evening.</p>
+    </div>
+    <div class="two">
+      <div>
+        <h3>Tested on a real TV</h3>
+        <ul>
+          <li>Children's lock and unlock from the script, and the usage tables.</li>
+          <li>Sleep timer: warning, +15 minutes, standby, wake by remote.</li>
+          <li>Power off from a script, with a delay and cancel.</li>
+          <li>The phone page and pairing on a home network.</li>
+          <li>The weather block and the Watch next shelf.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Still being tried on one TV</h3>
+        <ul>
+          <li>The sanitizer: the tidy-up of background apps when memory is low, and the restart of a VPN app when Home sits idle.</li>
+          <li>Children's schedule on the real TV, and the phone page's power-off button.</li>
+          <li>Switching the TV off by voice through HDMI-CEC.</li>
+          <li>The language list loaded from this repository, and the new defaults of the install script.</li>
+          <li>Translations other than English, Russian and Hebrew fall back to English.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy" aria-labelledby="privacy-h">
+    <div class="section-head">
+      <h2 id="privacy-h">What leaves the TV</h2>
+      <p>Very little, and you can read every line that does it.</p>
+    </div>
+    <ol class="rows">
+      <li>
+        <h3>The network permission</h3>
+        <div><p>By default two things go online. The optional weather block asks Open-Meteo once every 30 minutes while Home is shown. Opening the language dialog reads one small list of languages from this project's GitHub repository, and keeps it. Plain http is allowed for your home network only; anything else is refused before a connection is made.</p></div>
+      </li>
+      <li>
+        <h3>The accessibility service</h3>
+        <div><p>It sees which app came to the front and, while the TV is locked, the remote's key presses. It reads no screen content, text or passwords.</p></div>
+      </li>
+      <li>
+        <h3>The PIN and the phones</h3>
+        <div><p>The PIN is a salted hash. Phone tokens travel in a header, never in an address, and the TV keeps only their hashes. Children's data stays on the TV and can be erased there.</p></div>
+      </li>
+      <li>
+        <h3>Cloud control, only if you turn it on</h3>
+        <div><p>To control the TV from your phone away from home, you can switch on Cloud control and pair a Telegram bot with a code shown on the TV. The TV only connects out; nothing connects in and no port is opened. The server learns the TV's name, which apps were in front and when the screen was on, the last journal events and your messages, not the parents code, the Wi-Fi name or what you watch. It deletes data older than 30 days, and turning the switch off deletes the TV's data at once. It is off until a parent turns it on.</p></div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="support" aria-labelledby="support-h">
+    <div class="section-head">
+      <h2 id="support-h">Keep it going</h2>
+      <p>MyTV is free, and it will stay usable without paying. If it saved you an evening, a donation pays for the testing TV time and the server for the bot.</p>
+    </div>
+    <div class="support__actions">
+      <a class="btn" href="https://ko-fi.com/resultman">Donate on Ko-fi, worldwide</a>
+      <a class="btn btn--line" href="https://pay.cloudtips.ru/p/0b7cf363">Donate from Russia, SBP and cards</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a href="https://github.com/iResultMan/MyTV-launcher">Source on GitHub</a>
+  <a href="https://github.com/iResultMan/MyTV-launcher/issues">Report a problem</a>
+  <span>MIT licence.</span>
+</footer>
+</body>
+</html>

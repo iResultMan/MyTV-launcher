@@ -1,0 +1,22 @@
+# systemd user unit for the Telegram bot.
+# Needs the bot token in ~/.config/mytv-bot/token (chmod 600), see cloud/README.md.
+# Install (from the clone): sed "s#%h/mytv-public#$(git rev-parse --show-toplevel)#" cloud/systemd/mytv-bot.service > ~/.config/systemd/user/mytv-bot.service && systemctl --user daemon-reload && systemctl --user enable --now mytv-bot
+# Replace %h/mytv-public by the path of your clone (the README has a one-line sed for it). To keep it running after you log out: loginctl enable-linger $USER
+[Unit]
+Description=MyTV Telegram bot
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 %h/mytv-public/cloud/bot/bot.py
+# The bot runs on the same machine as the server, so it talks to it directly. Going through the public name would count
+# every user of the bot against the proxy's per-address rate limit. Use https://tv.secondoffice.ru only if the bot runs elsewhere.
+Environment=MYTV_CLOUD_URL=http://127.0.0.1:8791
+# Token: ~/.config/mytv-bot/token. Shared key with the server (optional): ~/.config/mytv-bot/cloud-key
+# Data: ~/.local/share/mytv-bot/bot.sqlite (holds the parents' tokens, mode 0600)
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=default.target

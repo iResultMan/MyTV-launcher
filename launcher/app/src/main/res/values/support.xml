@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The donation links About shows as QR codes under "Support the project". A theme can replace either with
+         "support_url" or "support_url_ru" in its config.json; an empty value hides that code, and with both empty
+         the row is not shown at all. Plain https addresses of at most 106 bytes. The launcher itself never opens
+         them: the codes are read by a phone. -->
+    <string name="support_url" translatable="false">https://ko-fi.com/resultman</string>
+    <string name="support_url_ru" translatable="false">https://pay.cloudtips.ru/p/0b7cf363</string>
+</resources>

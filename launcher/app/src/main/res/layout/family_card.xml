@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A message for the family (FamilyMessage): centred in the free middle of Home. Gone unless one is on. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/familyCard"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top|center_horizontal"
+    android:layout_marginTop="159dp"
+    android:minWidth="440dp"
+    android:paddingStart="36dp"
+    android:paddingEnd="36dp"
+    android:paddingTop="22dp"
+    android:paddingBottom="20dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@drawable/glass_panel"
+    android:focusable="false"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/familyKicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/family_message_kicker"
+        android:textColor="#B3FFFFFF"
+        android:textSize="11sp"
+        android:fontFamily="@string/font_medium"
+        android:letterSpacing="0.22"
+        android:textAllCaps="true" />
+
+    <TextView
+        android:id="@+id/familyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:maxWidth="560dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:textColor="#FFFFFFFF"
+        android:textSize="34sp"
+        android:fontFamily="@string/font_light" />
+
+    <TextView
+        android:id="@+id/familyAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="#99FFFFFF"
+        android:textSize="13sp"
+        android:fontFamily="@string/font_regular" />
+</LinearLayout>

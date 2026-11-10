@@ -1,0 +1,24 @@
+{
+  "dock_apps": [
+    "com.netflix.ninja",
+    "com.google.android.youtube.tv",
+    "ru.kinopoisk.tv",
+    "ru.ivi.client",
+    "tv.lfstrm.smotreshka"
+  ],
+  "hidden_apps": ["com.tcl.tv", "com.tcl.dashboard"],
+  "live_tv_package": "com.tcl.tv",
+  "columns": 5,
+  "rows_below_dock": 0,
+  "greeting_name": "",
+  "icon_only_buttons": true,
+  "wifi_status_color": true,
+  "app_library": true,
+  "home_idle_clock_minutes": 10,
+  "background_color": "#07080D",
+  "wallpaper": true,
+  "ambient_glow": false,
+  "dock_opacity": 70,
+  "app_glow": true,
+  "focus_overshoot": false
+}

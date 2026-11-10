@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Night dimming (NightDim): a black layer over Home in the night hours; transparent and gone by day. -->
+<View xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nightScrim"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF000000"
+    android:alpha="0"
+    android:visibility="gone"
+    android:focusable="false"
+    android:importantForAccessibility="no" />

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Погода</string>
+
+    <string name="feels_like">Ощущается как %1$d°</string>
+    <string name="humidity">Влажность %1$d%%</string>
+    <string name="wind">Ветер %1$d км/ч</string>
+    <string name="high_low">%1$d° / %2$d°</string>
+    <string name="aqi_line">Воздух %1$d · %2$s</string>
+    <string name="updated">Обновлено %1$s · Open-Meteo</string>
+    <string name="change_city">Сменить город</string>
+    <string name="loading">Загружаю погоду…</string>
+    <string name="offline">Нет связи с Open-Meteo. Проверьте интернет на ТВ, повторная попытка через 5 минут.</string>
+
+    <string name="pick_title">Какой город?</string>
+    <string name="pick_hint">Название города, например Москва</string>
+    <string name="pick_search">Найти</string>
+    <string name="pick_none">Не найден город «%1$s»</string>
+    <string name="pick_first">Выберите город, чтобы увидеть погоду.</string>
+
+    <string name="aqi_good">Хороший</string>
+    <string name="aqi_moderate">Умеренный</string>
+    <string name="aqi_sensitive">Вреден для чувствительных</string>
+    <string name="aqi_unhealthy">Вредный</string>
+    <string name="aqi_very_unhealthy">Очень вредный</string>
+    <string name="aqi_hazardous">Опасный</string>
+
+    <string name="sky_clear">Ясно</string>
+    <string name="sky_sunny">Солнечно</string>
+    <string name="sky_mostly_clear">Почти ясно</string>
+    <string name="sky_mostly_sunny">Преимущественно солнечно</string>
+    <string name="sky_partly_cloudy">Переменная облачность</string>
+    <string name="sky_cloudy">Облачно</string>
+    <string name="sky_fog">Туман</string>
+    <string name="sky_drizzle">Морось</string>
+    <string name="sky_freezing_drizzle">Ледяная морось</string>
+    <string name="sky_light_rain">Небольшой дождь</string>
+    <string name="sky_rain">Дождь</string>
+    <string name="sky_heavy_rain">Сильный дождь</string>
+    <string name="sky_freezing_rain">Ледяной дождь</string>
+    <string name="sky_light_snow">Небольшой снег</string>
+    <string name="sky_snow">Снег</string>
+    <string name="sky_heavy_snow">Сильный снег</string>
+    <string name="sky_snow_grains">Снежная крупа</string>
+    <string name="sky_showers">Ливень</string>
+    <string name="sky_snow_showers">Снегопад</string>
+    <string name="sky_thunderstorm">Гроза</string>
+    <!-- The Russian build starts with Moscow; other languages keep the first-run city search. -->
+    <string name="default_city">Москва</string>
+    <string name="default_lat">55.7558</string>
+    <string name="default_lon">37.6176</string>
+</resources>

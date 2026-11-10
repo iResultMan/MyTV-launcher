@@ -1,0 +1,21 @@
+# systemd user unit for the cloud link server.
+# Install (from the clone): sed "s#%h/mytv-public#$(git rev-parse --show-toplevel)#" cloud/systemd/mytv-cloud.service > ~/.config/systemd/user/mytv-cloud.service && systemctl --user daemon-reload && systemctl --user enable --now mytv-cloud
+# Replace %h/mytv-public by the path of your clone (the README has a one-line sed for it). To keep it running after you log out: loginctl enable-linger $USER
+[Unit]
+Description=MyTV cloud link server (docs/cloud-protocol.md v1)
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 %h/mytv-public/cloud/server/server.py
+# Loopback only; put a TLS reverse proxy in front (see cloud/README.md). Trust X-Real-IP only behind that proxy.
+Environment=MYTV_CLOUD_HOST=127.0.0.1
+Environment=MYTV_CLOUD_PORT=8791
+Environment=MYTV_CLOUD_TRUST_PROXY=1
+# Database default: ~/.local/share/mytv-cloud/cloud.sqlite. Shared key with the bot (optional): ~/.config/mytv-bot/cloud-key
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=default.target
