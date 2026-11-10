@@ -53,15 +53,20 @@ You need a computer on the same Wi-Fi as the TV and about ten minutes.
 
 1. **On the TV:** Settings → Device Preferences → About → press OK on **Build** seven times → back → Developer options →
    **USB debugging** on (and Network debugging if offered). Note the TV's IP under Settings → Network.
-2. **On the computer:** install Google's platform-tools (they contain `adb`), then `adb connect 192.168.1.50:5555` with your
+2. **Easiest: run the installer.** On Windows download and double-click
+   [install-mytv.cmd](https://github.com/iResultMan/MyTV-launcher/releases/latest/download/install-mytv.cmd); on macOS or Linux run
+   `curl -fsSL https://github.com/iResultMan/MyTV-launcher/releases/latest/download/install-mytv.sh | bash -s 192.168.1.50`
+   (your TV's address). It fetches adb if needed, checks the download, installs MyTV, grants what the family features need,
+   switches the key helper on and makes MyTV Home, leaving the old launcher alone. Then skip to step 4. The sources are in
+   [`install/`](install/). Or do steps 2 and 3 by hand:
+
+   **On the computer:** install Google's platform-tools (they contain `adb`), then `adb connect 192.168.1.50:5555` with your
    TV's address, and allow the connection on the TV.
 3. **Put MyTV on the TV:** download [MyTV.apk](https://github.com/iResultMan/MyTV-launcher/releases/latest/download/MyTV.apk)
    and run `adb install -r MyTV.apk`. If another build with the same application id (`com.gathin.tvhome`) is on the TV,
    uninstall it first: Android will not replace an app signed by someone else.
 4. **Make it Home and switch the rest off:** the guided path below does the backup, applies the list of services for your TV
    model, makes MyTV the home screen and rolls back if Home does not land on it.
-
-A one-click installer for Windows, macOS and Linux is planned.
 
 ## Supported TVs
 

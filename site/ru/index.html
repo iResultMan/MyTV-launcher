@@ -147,6 +147,15 @@
       <a class="btn" href="https://github.com/iResultMan/MyTV-launcher/releases/latest/download/MyTV.apk">Скачать MyTV.apk</a>
       <a class="btn btn--line" href="https://github.com/iResultMan/MyTV-launcher/releases">Все версии</a>
     </div>
+    <h3>Автоматический способ</h3>
+    <p>Сделайте шаг 1 ниже и запустите один установщик. Он найдёт adb (и скачает, если его нет), проверит загрузку, поставит MyTV, выдаст разрешения для семейных функций, включит службу кнопок и назначит MyTV главным экраном. Старый лаунчер он не трогает.</p>
+    <div class="support__actions">
+      <a class="btn" href="https://github.com/iResultMan/MyTV-launcher/releases/latest/download/install-mytv.cmd">Установщик для Windows</a>
+      <a class="btn" href="https://github.com/iResultMan/MyTV-launcher/releases/latest/download/install-mytv.sh">Установщик для macOS и Linux</a>
+    </div>
+    <p>На macOS и Linux в терминале, с адресом вашего ТВ:</p>
+<pre>curl -fsSL https://github.com/iResultMan/MyTV-launcher/releases/latest/download/install-mytv.sh | bash -s 192.168.1.50</pre>
+    <p>На Windows запустите скачанный файл двойным щелчком и введите адрес, когда он спросит. Или сделайте всё вручную:</p>
     <ol class="rows">
       <li>
         <h3>1. Включите отладку на ТВ</h3>
@@ -172,7 +181,7 @@
         <h3>4. Сделайте его главным и отключите лишнее</h3>
         <div>
           <p>Пошаговый путь делает резервную копию, применяет список отключаемых служб для вашей модели ТВ, назначает MyTV главным экраном и откатывает всё, если главным экраном он не стал. Он описан в README в разделе «Doing it by hand» (по-английски).</p>
-          <span class="tag"><a href="https://github.com/iResultMan/MyTV-launcher#doing-it-by-hand">Открыть README</a>. Установщик в один клик для Windows, macOS и Linux запланирован.</span>
+          <span class="tag"><a href="https://github.com/iResultMan/MyTV-launcher#doing-it-by-hand">Открыть README</a>. Автоматический установщик выше делает шаги 2 и 3 и настройку службы кнопок за вас.</span>
         </div>
       </li>
     </ol>

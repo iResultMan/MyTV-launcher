@@ -147,6 +147,15 @@
       <a class="btn" href="https://github.com/iResultMan/MyTV-launcher/releases/latest/download/MyTV.apk">Download MyTV.apk</a>
       <a class="btn btn--line" href="https://github.com/iResultMan/MyTV-launcher/releases">All releases</a>
     </div>
+    <h3>The automatic way</h3>
+    <p>Do step 1 below, then run one installer. It finds adb (and downloads it if needed), checks the download, installs MyTV, gives it the permissions the family features need, switches the key helper on and makes MyTV the home screen. The old launcher stays untouched.</p>
+    <div class="support__actions">
+      <a class="btn" href="https://github.com/iResultMan/MyTV-launcher/releases/latest/download/install-mytv.cmd">Installer for Windows</a>
+      <a class="btn" href="https://github.com/iResultMan/MyTV-launcher/releases/latest/download/install-mytv.sh">Installer for macOS and Linux</a>
+    </div>
+    <p>On macOS and Linux, in a terminal, with your TV's address:</p>
+<pre>curl -fsSL https://github.com/iResultMan/MyTV-launcher/releases/latest/download/install-mytv.sh | bash -s 192.168.1.50</pre>
+    <p>On Windows, double-click the downloaded file and type the address when it asks. Or do it by hand:</p>
     <ol class="rows">
       <li>
         <h3>1. Turn on debugging on the TV</h3>
@@ -172,7 +181,7 @@
         <h3>4. Make it Home and switch the rest off</h3>
         <div>
           <p>The guided path does the backup, applies the list of services to switch off for your TV model, makes MyTV the home screen and rolls back if Home does not land on it. It is in the README under "Doing it by hand".</p>
-          <span class="tag"><a href="https://github.com/iResultMan/MyTV-launcher#doing-it-by-hand">Open the README</a>. A one-click installer for Windows, macOS and Linux is planned.</span>
+          <span class="tag"><a href="https://github.com/iResultMan/MyTV-launcher#doing-it-by-hand">Open the README</a>. The automatic installer above does steps 2 and 3 and the helper setup for you.</span>
         </div>
       </li>
     </ol>
