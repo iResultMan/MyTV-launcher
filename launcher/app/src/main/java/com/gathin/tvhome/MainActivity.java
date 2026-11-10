@@ -217,6 +217,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean showStats;
     /** Weather, family message, children's lock card and night dimming (FamilyHome). */
     private FamilyHome familyHome;
+    /** The remote's gear button on Home: one tap opens the TV panel, two taps the sleep timer (the helper has no keys here). */
+    private QuickMenu quickMenu;
     /** grid_rows: rows visible at once (0 off); snapTopRow is the first of them, snapItemH one row's height in px. */
     private int snapRows, snapTopRow, snapItemH;
     /** Theme key art_all_tiles: the softened artwork backdrop follows the focused tile below the dock too (it is cached, about 5 KB per app). */
@@ -588,6 +590,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         shamsiDate = findViewById(R.id.shamsiDate);
         stats = findViewById(R.id.stats);
         familyHome = new FamilyHome(this);
+        quickMenu = new QuickMenu(this, handler);
+        quickMenu.configure(Config.overlay(this));
         sanitizer = new Sanitizer(this, () -> vpnApp == null ? "" : vpnApp, this::vpnAppIntent);
         nextShelf = new NextShelf(this, root, new NextShelf.Host() {
             @Override
@@ -1518,6 +1522,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (familyHome.onKey(event)) return true;
+        if (quickMenu.onKey(event)) return true;
         if (sanitizer != null) sanitizer.touch();
         if (nextShelf != null && !reordering && openPopup == null && cardPrompt == null) {
             if (nextShelf.onKey(event)) return true;

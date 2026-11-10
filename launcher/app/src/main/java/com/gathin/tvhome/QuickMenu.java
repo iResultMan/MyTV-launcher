@@ -1,6 +1,7 @@
 package com.gathin.tvhome;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
@@ -22,19 +23,21 @@ import org.json.JSONObject;
  * taken, so the single tap is the helper's call to the TCL panel service, 350 ms late.
  * Keys reach the helper only while it filters them, and a filtered release held up on this TV makes Android repeat
  * the press (see FamilyHooks.updateKeyFilter), so the filter is on only while an app other than Home is in front.
+ * On Home the launcher's own window gets every key unfiltered, so MainActivity runs a second instance of this class
+ * on the same button: the helper covers other apps, the activity covers Home, and neither sees the other's keys.
  */
 final class QuickMenu {
     private static final String TAG = "QuickMenu";
     private static final ComponentName TCL_PANEL = new ComponentName("com.tcl.settings", "com.tcl.settings.ShowWindowService");
 
-    private final HomeKeyService service;
+    private final Context service;
     private final Handler handler;
     private final GearPress press = new GearPress();
     private int[] scancodes = new int[0];
     private boolean foreign;
     private final Runnable single = this::singleTap;
 
-    QuickMenu(HomeKeyService service, Handler handler) {
+    QuickMenu(Context service, Handler handler) {
         this.service = service;
         this.handler = handler;
     }
