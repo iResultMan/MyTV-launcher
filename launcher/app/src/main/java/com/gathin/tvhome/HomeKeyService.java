@@ -100,6 +100,18 @@ public class HomeKeyService extends AccessibilityService {
     /** The bound helper, so the opt-in broadcast can arm it without waiting for a new connection. */
     private static HomeKeyService running;
 
+    /** The gear button was pressed on Home: see its keys for a moment so a second press is not lost (FamilyHooks.armGear). */
+    /** Back, as the remote's button would: closes the TV settings panel the first press of a double tap opened. */
+    static void closePanel() {
+        HomeKeyService s = running;
+        if (s != null) s.performGlobalAction(GLOBAL_ACTION_BACK);
+    }
+
+    static void armGear(long ms) {
+        HomeKeyService s = running;
+        if (s != null) s.family.armGear(ms);
+    }
+
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();

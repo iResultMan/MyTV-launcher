@@ -38,6 +38,11 @@ final class QuickMenu {
     private final boolean opensPanel;
     private int[] scancodes = new int[0];
     private boolean foreign;
+    private long armedUntil;
+    /** Home mode: when the last press of the button came in (shared by the helper and the activity). */
+    private static long lastHomePress;
+    private static final long HOME_DOUBLE_MS = 700;
+    private static final long ARM_MS = 1200;
     private final Runnable single = this::singleTap;
 
     /** opensPanel: false on Home, where the TV's own handling already opens its panel on the press and a second call would close it. */
@@ -86,7 +91,11 @@ final class QuickMenu {
 
     /** True while the helper has to see keys for this: configured and another app is in front. */
     boolean wantsKeys() {
-        return scancodes.length > 0 && foreign;
+        return scancodes.length > 0 && (foreign || SystemClock.elapsedRealtime() < armedUntil);
+    }
+
+    void arm(long ms) {
+        armedUntil = SystemClock.elapsedRealtime() + ms;
     }
 
     /** A window-state event; true when the key filter has to be reconsidered. */
@@ -110,6 +119,7 @@ final class QuickMenu {
     boolean onKey(KeyEvent event) {
         if (!isButton(event.getScanCode())) return false;
         long now = SystemClock.elapsedRealtime();
+        if (!opensPanel || !foreign) return onHomeKey(event, now);
         boolean down = event.getAction() == KeyEvent.ACTION_DOWN;
         if (press.onKey(down, down && event.getRepeatCount() > 0, now)) {
             handler.removeCallbacks(single);
@@ -119,6 +129,28 @@ final class QuickMenu {
             if (wait >= 0) {
                 handler.removeCallbacks(single);
                 handler.postDelayed(single, wait);
+            }
+        }
+        return true;
+    }
+
+    /**
+     * On Home the TV's own firmware opens its panel on the press, and that panel takes the window focus within a few
+     * milliseconds: the release and the second press then go to the panel, and a press-and-release state machine never
+     * completes. So only the presses count: two within HOME_DOUBLE_MS are a double tap, and the first one makes the
+     * helper see keys for a moment, because only its filter gets the second press whatever window has the focus.
+     */
+    private boolean onHomeKey(KeyEvent event, long now) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && event.getRepeatCount() == 0) {
+            if (now - lastHomePress <= HOME_DOUBLE_MS) {
+                lastHomePress = 0;
+                // The first press made the firmware open its panel and the helper took the second, so nothing
+                // closes it: Back does, and on Home a Back with no panel open does nothing.
+                HomeKeyService.closePanel();
+                doubleTap();
+            } else {
+                lastHomePress = now;
+                HomeKeyService.armGear(ARM_MS);
             }
         }
         return true;

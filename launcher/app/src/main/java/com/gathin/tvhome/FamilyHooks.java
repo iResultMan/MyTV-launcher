@@ -173,6 +173,13 @@ final class FamilyHooks {
         service.setServiceInfo(info);
     }
 
+    /** See the keys for ms milliseconds more, then let the filter go again. */
+    void armGear(long ms) {
+        quickMenu.arm(ms);
+        updateKeyFilter();
+        handler.postDelayed(this::updateKeyFilter, ms + 50);
+    }
+
     /** null: not ours, go on; otherwise what onKeyEvent returns. */
     Boolean onKey(KeyEvent event) {
         // The code pad over the lock screen takes its own keys.
