@@ -590,7 +590,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         shamsiDate = findViewById(R.id.shamsiDate);
         stats = findViewById(R.id.stats);
         familyHome = new FamilyHome(this);
-        quickMenu = new QuickMenu(this, handler);
+        quickMenu = new QuickMenu(this, handler, false);
         quickMenu.configure(Config.overlay(this));
         sanitizer = new Sanitizer(this, () -> vpnApp == null ? "" : vpnApp, this::vpnAppIntent);
         nextShelf = new NextShelf(this, root, new NextShelf.Host() {

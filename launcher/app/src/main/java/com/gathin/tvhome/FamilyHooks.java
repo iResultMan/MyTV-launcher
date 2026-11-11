@@ -64,7 +64,7 @@ final class FamilyHooks {
 
     FamilyHooks(HomeKeyService service) {
         this.service = service;
-        quickMenu = new QuickMenu(service, handler);
+        quickMenu = new QuickMenu(service, handler, true);
         warnings = minutes -> {
             if (messages != null) messages.showLocal(service.getString(R.string.kids_warn, minutes), 20);
         };

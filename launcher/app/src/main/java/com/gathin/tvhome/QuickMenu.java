@@ -24,7 +24,9 @@ import org.json.JSONObject;
  * Keys reach the helper only while it filters them, and a filtered release held up on this TV makes Android repeat
  * the press (see FamilyHooks.updateKeyFilter), so the filter is on only while an app other than Home is in front.
  * On Home the launcher's own window gets every key unfiltered, so MainActivity runs a second instance of this class
- * on the same button: the helper covers other apps, the activity covers Home, and neither sees the other's keys.
+ * on the same button: the helper covers other apps, the activity covers Home, and neither sees the other's keys. The
+ * TCL firmware opens its settings panel itself when the key reaches Home (and the panel service toggles), so there the
+ * activity only adds the double tap.
  */
 final class QuickMenu {
     private static final String TAG = "QuickMenu";
@@ -33,13 +35,16 @@ final class QuickMenu {
     private final Context service;
     private final Handler handler;
     private final GearPress press = new GearPress();
+    private final boolean opensPanel;
     private int[] scancodes = new int[0];
     private boolean foreign;
     private final Runnable single = this::singleTap;
 
-    QuickMenu(Context service, Handler handler) {
+    /** opensPanel: false on Home, where the TV's own handling already opens its panel on the press and a second call would close it. */
+    QuickMenu(Context service, Handler handler, boolean opensPanel) {
         this.service = service;
         this.handler = handler;
+        this.opensPanel = opensPanel;
     }
 
     void configure(JSONObject overlay) {
@@ -120,7 +125,7 @@ final class QuickMenu {
     }
 
     private void singleTap() {
-        if (!press.singleDue(SystemClock.elapsedRealtime())) return;
+        if (!press.singleDue(SystemClock.elapsedRealtime()) || !opensPanel) return;
         Intent panel = new Intent("com.tcl.settings.SHOW_WINDOW").setComponent(TCL_PANEL).putExtra("Type", "Settings");
         try {
             service.startService(panel);
