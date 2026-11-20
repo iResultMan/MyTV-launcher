@@ -64,7 +64,7 @@ final class FamilyHooks {
 
     FamilyHooks(HomeKeyService service) {
         this.service = service;
-        quickMenu = new QuickMenu(service, handler, true);
+        quickMenu = new QuickMenu(service, true);
         warnings = minutes -> {
             if (messages != null) messages.showLocal(service.getString(R.string.kids_warn, minutes), 20);
         };
@@ -203,7 +203,7 @@ final class FamilyHooks {
     /** A window-state event; true when it was dealt with and nothing else should act on it. */
     boolean onWindow(AccessibilityEvent event) {
         UsageLog.onWindow(event.getPackageName(), event.getClassName(), service.getPackageName());
-        if (quickMenu.onWindow(event)) updateKeyFilter();
+        if (quickMenu.onWindow(event)) armGear(QuickMenu.ARM_MS);
         // An app a parent closed for the children (with the schedule on) goes straight back to Home.
         CharSequence shown = event.getPackageName();
         if (store == null) store = new KidsStore(service);

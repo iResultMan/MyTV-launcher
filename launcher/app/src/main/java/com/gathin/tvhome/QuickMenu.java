@@ -1,65 +1,50 @@
 package com.gathin.tvhome;
 
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.accessibility.AccessibilityEvent;
-
-import com.gathin.tvhome.family.GearPress;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  * One remote button, two answers, over any app and without stopping it: a single tap opens what the TV opens for that
- * button (on the TCL BeyondTV2 the settings panel, scancode 561), two quick taps open the sleep timer over the video (the time left when it already runs).
+ * button (on the TCL BeyondTV2 the settings panel, scancode 561, opened by the firmware itself), two quick taps open the
+ * sleep timer over the video (the time left when it already runs).
  * Theme key quick_menu_scancode names the button (a number, or a list for remotes that send it differently: the TCL
- * IR remote sends scancode 561, its Bluetooth remote 233); 0 or absent leaves it to the system. The button's own press is
- * taken, so the single tap is the helper's call to the TCL panel service, 350 ms late.
+ * IR remote sends scancode 561, its Bluetooth remote 233); 0 or absent leaves it to the system.
  * Keys reach the helper only while it filters them, and a filtered release held up on this TV makes Android repeat
- * the press (see FamilyHooks.updateKeyFilter), so the filter is on only while an app other than Home is in front.
- * On Home the launcher's own window gets every key unfiltered, so MainActivity runs a second instance of this class
- * on the same button: the helper covers other apps, the activity covers Home, and neither sees the other's keys. The
- * TCL firmware opens its settings panel itself when the key reaches Home (and the panel service toggles), so there the
- * activity only adds the double tap.
+ * the press (arrows skip rows, volume jumps; see FamilyHooks.updateKeyFilter), so the filter is never on for this
+ * button alone. The TCL firmware opens its settings panel itself on the first press, on Home and in every other app;
+ * when that panel's window appears the helper sees keys for ARM_MS, so the second press of a double tap reaches it
+ * whatever window has the focus. MainActivity runs a second instance of this class for Home, where the activity gets
+ * every key unfiltered; neither instance sees the other's keys.
  */
 final class QuickMenu {
     private static final String TAG = "QuickMenu";
-    private static final ComponentName TCL_PANEL = new ComponentName("com.tcl.settings", "com.tcl.settings.ShowWindowService");
 
     private final Context service;
-    private final Handler handler;
-    private final GearPress press = new GearPress();
     private final boolean opensPanel;
     private int[] scancodes = new int[0];
-    private boolean foreign;
     private long armedUntil;
     /** Home mode: when the last press of the button came in (shared by the helper and the activity). */
     private static long lastHomePress;
     private static final long HOME_DOUBLE_MS = 700;
-    private static final long ARM_MS = 1200;
-    private final Runnable single = this::singleTap;
+    static final long ARM_MS = 1200;
+    private static final String TCL_PANEL_PACKAGE = "com.tcl.settings";
+    /** Armed mode: the press the helper took is the second of a double tap, so its release is taken too. */
+    private boolean tookDown;
 
-    /** opensPanel: false on Home, where the TV's own handling already opens its panel on the press and a second call would close it. */
-    QuickMenu(Context service, Handler handler, boolean opensPanel) {
+    /** opensPanel: false for the activity on Home, whose keys the firmware handles itself; the helper takes only the second press. */
+    QuickMenu(Context service, boolean opensPanel) {
         this.service = service;
-        this.handler = handler;
         this.opensPanel = opensPanel;
     }
 
     void configure(JSONObject overlay) {
         scancodes = readScancodes(overlay);
-        if (scancodes.length == 0) handler.removeCallbacks(single);
-        // No window event has come yet when the helper starts with an app already in front: our own process is in the
-        // foreground only while Home is on screen.
-        android.app.ActivityManager.RunningAppProcessInfo me = new android.app.ActivityManager.RunningAppProcessInfo();
-        android.app.ActivityManager.getMyMemoryState(me);
-        foreign = me.importance != android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
     }
 
     /** quick_menu_scancode: one number, or a list when the TV has two remotes that send the button differently. */
@@ -89,29 +74,26 @@ final class QuickMenu {
         return scancodes.length > 0;
     }
 
-    /** True while the helper has to see keys for this: configured and another app is in front. */
+    /** True while the helper has to see keys for this: only for a moment after the button's first press. */
     boolean wantsKeys() {
-        return scancodes.length > 0 && (foreign || SystemClock.elapsedRealtime() < armedUntil);
+        return scancodes.length > 0 && SystemClock.elapsedRealtime() < armedUntil;
     }
 
     void arm(long ms) {
         armedUntil = SystemClock.elapsedRealtime() + ms;
     }
 
-    /** A window-state event; true when the key filter has to be reconsidered. */
+    /**
+     * A window-state event; true when the TV's settings panel has just opened, which the firmware does on the button's
+     * first press: that is the first tap of a possible double tap, and the filter has to be armed for the second.
+     * Events inside an open panel (a submenu) do not count while it is armed.
+     */
     boolean onWindow(AccessibilityEvent event) {
         CharSequence pkg = event.getPackageName();
-        CharSequence cls = event.getClassName();
-        if (scancodes.length == 0 || pkg == null || cls == null) return false;
-        try {
-            // Only activities count: a toast, the volume bar or a panel does not change the app in front.
-            service.getPackageManager().getActivityInfo(new ComponentName(pkg.toString(), cls.toString()), 0);
-        } catch (PackageManager.NameNotFoundException notAnActivity) {
-            return false;
-        }
-        boolean now = !pkg.toString().equals(service.getPackageName()) && !pkg.toString().equals("com.android.systemui");
-        if (now == foreign) return false;
-        foreign = now;
+        if (scancodes.length == 0 || pkg == null || !TCL_PANEL_PACKAGE.contentEquals(pkg)) return false;
+        long now = SystemClock.elapsedRealtime();
+        if (now < armedUntil) return false;
+        lastHomePress = now;
         return true;
     }
 
@@ -119,18 +101,26 @@ final class QuickMenu {
     boolean onKey(KeyEvent event) {
         if (!isButton(event.getScanCode())) return false;
         long now = SystemClock.elapsedRealtime();
-        if (!opensPanel || !foreign) return onHomeKey(event, now);
-        boolean down = event.getAction() == KeyEvent.ACTION_DOWN;
-        if (press.onKey(down, down && event.getRepeatCount() > 0, now)) {
-            handler.removeCallbacks(single);
-            doubleTap();
-        } else {
-            long wait = press.nextDelay(now);
-            if (wait >= 0) {
-                handler.removeCallbacks(single);
-                handler.postDelayed(single, wait);
-            }
+        if (!opensPanel) return onHomeKey(event, now);
+        return onArmedKey(event, now);
+    }
+
+    /**
+     * The helper sees the button only while armed. A press within HOME_DOUBLE_MS of the panel opening is the second tap:
+     * the panel is closed and the sleep timer shown. Any other press goes on to the firmware (it closes the panel).
+     */
+    private boolean onArmedKey(KeyEvent event, long now) {
+        if (event.getAction() == KeyEvent.ACTION_UP) {
+            boolean took = tookDown;
+            tookDown = false;
+            return took;
         }
+        if (event.getRepeatCount() > 0) return tookDown;
+        if (now - lastHomePress > HOME_DOUBLE_MS) return false;
+        lastHomePress = 0;
+        tookDown = true;
+        HomeKeyService.closePanel();
+        doubleTap();
         return true;
     }
 
@@ -154,17 +144,6 @@ final class QuickMenu {
             }
         }
         return true;
-    }
-
-    private void singleTap() {
-        if (!press.singleDue(SystemClock.elapsedRealtime()) || !opensPanel) return;
-        Intent panel = new Intent("com.tcl.settings.SHOW_WINDOW").setComponent(TCL_PANEL).putExtra("Type", "Settings");
-        try {
-            service.startService(panel);
-            Log.i(TAG, "single tap: TV settings panel");
-        } catch (RuntimeException e) {
-            Log.w(TAG, "single tap: could not open the TV settings panel: " + e);
-        }
     }
 
     private void doubleTap() {
